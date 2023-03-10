@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado Categoria</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+</head>
+<body>
+<br>
+<h1  class="card-title text-center " >Listado Categoria Articulos</h1>
+<a href="{% url 'crearCategoriaUrl' %}" class="btn btn-primary" type="button" > Crear Categoria</a>
+<form class="text-right" action="/buscar/" method="get">
+    <input type="text" name="catBuscar">
+    <input class="btn btn-primary" type="submit" value="Buscar">
+</form>
+
+{% if categoria %}
+    <div class="card-body ">
+        <div class="table-responsive">
+            <table cellspacing="0" class="table table-bordered table-hover" id="dtBasicExample">
+                <thead class="bg-gradient-primary">
+                <tr class="text-light text-center">
+                    <th style="color: black" >id</th>
+                    <th  style="color: black">Categoria</th>
+                    <th  style="color: black">Opciones</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                {% for r in categoria %}
+                <tr class="text-dark">
+                    <td class="text-dark">{{r.id}}</td>
+                    <td>{{r.descripcion}}</td>
+
+                    <td class="text-center"><a href='{% url 'eliminarCategoriaUrl' r.id %}' class="btn btn-outline-danger" type="button" >Eliminar</a>
+                        <a href='{% url 'modificarCategoriaurl' r.id %}' class="btn btn-outline-warning" type="button" >Editar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endif %}
+
+{% if not categoria %}
+    <div class="card-body ">
+        <div class="table-responsive">
+            <table cellspacing="0" class="table table-bordered table-hover" id="dtBasicExample">
+                <thead class="bg-gradient-primary">
+                <tr class="text-light text-center">
+                    <th style="color: black" >id</th>
+                    <th  style="color: black">Categoria</th>
+                    <th  style="color: black">Opciones</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                {% for categoria in listado %}
+                <tr class="text-dark">
+                    <td class="text-dark">{{categoria.id}}</td>
+                    <td>{{categoria.descripcion}}</td>
+
+
+                    <td class="text-center"><a href='{% url 'eliminarCategoriaUrl' categoria.id %}' class="btn btn-outline-danger" type="button" >Eliminar</a>
+                        <a href='{% url 'modificarCategoriaurl' categoria.id %}' class="btn btn-outline-warning" type="button" >Editar</a> </td>
+                </tr>
+
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endif %}
+
+
+</body>
+</html>
